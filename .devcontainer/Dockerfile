@@ -12,11 +12,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get update \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && usermod -aG dialout $USERNAME
 # Install additonal packages - add any that you need
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y python3-pip python-is-python3 ssh neovim git nano udev
-RUN pip3 install evdev
+    apt-get install -y python3-pip python-is-python3 libusb-1.0-0 ssh curl iproute2 can-utils neovim git nano udev htop 
 
 ENV SHELL /bin/bash
 

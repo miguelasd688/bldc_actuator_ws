@@ -25,19 +25,18 @@
         }
     },
     "containerEnv": {
-        "DISPLAY": "unix:0",
         "ROS_LOCALHOST_ONLY": "1",
         "ROS_DOMAIN_ID": "42"
     },
     "runArgs": [
         "--net=host", 
         "--privileged",
+
         "-e", "DISPLAY=${env:DISPLAY}"
     ],
     "mounts": [
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind"
+        "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind",
+        "type=bind,source=/dev,target=/dev"
     ],
     "postCreateCommand": "sh ./.devcontainer/postCreate.sh"
 }

@@ -22,3 +22,45 @@ colcon build
 source install/local_setup.bash
 ```
 
+
+# Configuring CAN interface
+
+With Raspberry pi there is no CAN interface by default, but SPI can be used together with a CAN controller, in my case I'm using bcm2835 chip in a 2Ch HAT format. This HAT(https://www.waveshare.com/wiki/2-CH_CAN_HAT+) has isolated ground for avoiding gnd loops and protect RPI from induced currents from BLDC motors.
+
+The configuration will depends on the CAN controller you have:
+
+```
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.60.tar.gz
+tar zxvf bcm2835-1.60.tar.gz 
+cd bcm2835-1.60/
+sudo ./configure
+sudo make
+sudo make check
+sudo make install
+
+sudo dmesg | grep spi1
+
+sudo ip link set can0 up type can bitrate 1000000
+sudo ip link set can1 up type can bitrate 1000000
+sudo ifconfig can0 txqueuelen 65536
+sudo ifconfig can1 txqueuelen 65536
+
+ifconfig
+
+```
+
+
+# Setup actuator
+
+You can test and configure actuator at test/odrive/ directory.
+
+dump_errors(odrv0)
+
+odrv0.clear_errors()
+
+odrv0.axis0.motor.motor_thermistor
+
+'''
+
+'''
+
