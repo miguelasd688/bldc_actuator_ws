@@ -6,9 +6,10 @@ import sys
 # sudo ifconfig can0 txqueuelen 65536
 # ip link show can0
 # ifconfig
-# candump can0
+# candump can0 -xct z -n 10
+# cansend can0 0A7#0800000000000000
 # Configuración
-can_interface = 'can0'
+can_interface = 'can1'
 
 
 def check_can_interface(interface="can0"):
@@ -27,3 +28,5 @@ def check_can_interface(interface="can0"):
 if not check_can_interface(can_interface):
     print("[FATAL] CAN no disponible.")
     sys.exit(1)
+
+

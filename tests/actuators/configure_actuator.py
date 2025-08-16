@@ -21,7 +21,7 @@ axis.motor.config.calibration_current = cfg["motor"]["calibration_current"]
 axis.motor.config.pole_pairs = cfg["motor"]["pole_pairs"]
 axis.motor.config.torque_constant = cfg["motor"]["torque_constant"]
 
-axis.controller.config.vel_limit=30
+axis.controller.config.vel_limit=cfg["controller"]
 axis.controller.config.enable_torque_mode_vel_limit=10
 axis.controller.config.pos_gain=20.0
 axis.controller.config.vel_gain=0.16
@@ -80,24 +80,24 @@ print("")
 print("=============================================================")
 print("Starting Initial Calibration")
 print("")
+axis.requested_state = AXIS_STATE_MOTOR_CALIBRATION
 dump_errors(odrv, clear=True)
-axis.requested_state = AXIS_STATE_ENCODER_OFFSET_CALIBRATION
-print("Doing encoder calibration")
-print("|----------------------------------------¬")
-print('|', end='', flush=True)
-for i in range(40):
-    print('=', end='', flush=True)
-    time.sleep(80/40)    
-print("|")
-print("")
-dump_errors(odrv, clear=True)
-axis.requested_state= AXIS_STATE_MOTOR_CALIBRATION
 print("Doing motor calibration")
 print("|----------------------------------------¬")
 print('|', end='', flush=True)
 for i in range(40):
     print('=', end='', flush=True)
     time.sleep(6/40)    
+print("|")
+print("")
+axis.requested_state = AXIS_STATE_ENCODER_OFFSET_CALIBRATION # AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+dump_errors(odrv, clear=True)
+print("Doing encoder calibration")
+print("|----------------------------------------¬")
+print('|', end='', flush=True)
+for i in range(40):
+    print('=', end='', flush=True)
+    time.sleep(80/40)    
 print("|")
 print("")
 dump_errors(odrv, clear=True)
