@@ -12,13 +12,17 @@
     "torque_constant": 0.09700000286102295
   },
   "controller": {
-    "vel_limit": 10,
-    "accel_limit": 0.1,
-    "decel_limit": 0.1,
-    "enable_torque_mode_vel_limit": 10,
-    "pos_gain": 10.0,
-    "vel_gain": 0.01,
-    "vel_integrator_gain": 0.05
+    "vel_limit": 20.0,
+    "enable_torque_mode_vel_limit": true,
+    "pos_gain": 20.0,
+    "vel_gain": 0.16,
+    "vel_integrator_gain": 0.32
+  },
+  "trap_traj": {
+    "vel_limit": 20.0,
+    "accel_limit": 0.5,
+    "decel_limit": 0.5,
+    "inertia": 0.0
   },
   "thermistor": {
     "enabled": true,
@@ -30,5 +34,13 @@
     "overvoltage_trip_level": 16.0,
     "max_positive_current": 15.0,
     "max_negative_current": -5.0
+  },
+  "brake": {
+    "enable_brake_resistor": false,
+    "brake_resistance": 2.0,
+    "max_regen_current": 2.0,
+    "enable_dc_bus_overvoltage_ramp": false,
+    "dc_bus_overvoltage_ramp_start": 0.0,
+    "dc_bus_overvoltage_ramp_end": 0.0
   }
 }

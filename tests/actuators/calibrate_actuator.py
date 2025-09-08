@@ -9,7 +9,8 @@ print("Buscando ODrive...")
 odrv = odrive.find_any()
 axis = odrv.axis0  # Cambiar a axis1 si corresponde
 
-dump_errors(odrv, clear=True)
+dump_errors(odrv)
+odrv.clear_errors()
 # 1. Espera a que el encoder esté listo (por si es ABS)
 print("Esperando que el encoder esté listo...")
 while axis.encoder.is_ready == False:

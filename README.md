@@ -63,7 +63,7 @@ candump -tz can0
 ## Setup actuator
 
 ''' bash
-You can test and configure actuator at test/odrive/ directory.
+You can test and configure actuator at test/actuators/ directory.
 
 dump_errors(odrv0)
 
@@ -73,3 +73,57 @@ odrv0.axis0.motor.motor_thermistor
 
 '''
 
+### Configure actuator script:
+
+`configure_actuator.py`
+
+1. Load nominal actuator values and configuration.
+
+``` bash
+# save actual configuration
+odrivetool backup-config path/to/file/test.json
+
+# load a configuration file 
+odrivetool restore-config path/to/file/test.json
+```
+
+2. Start calibration sequence to set up phase_resistance and phase_inductance specific values.
+
+Usage of the script:
+
+
+
+``` bash
+cd tests/actuators/
+
+## make sure output axis is free to rotate, secuence do more than one turn
+python3 configure_actuator.py --node_id 2 --r120 False
+
+usage: configure_actuator.py [-h] [--node_id NODE_ID] [--r120 R120] [--config CONFIG]
+
+Configura un actuador ODrive con parámetros desde JSON
+
+options:
+  -h, --help         show this help message and exit
+  --node_id NODE_ID  Node ID para CAN (por defecto: 0)
+  --r120 R120        Enable built in terminate resistor: True or False
+  --config CONFIG    Archivo JSON de configuración
+
+```
+
+### Set actuator index
+
+Zero actual posion of the actuator. Execute following script:
+
+`calibrate_actuator.py`
+
+``` bash
+
+python3 calibrate_actuator.py
+
+TODO: incluir argumento que defina la posición deseada del actuador.
+```
+
+### Test_actuator
+
+Onces all verifications are done and configuration is correct, run `test_actuator.py`. It performs a slow homing to zero position and a secuence of sweep movements, **keep motor shaft free for this trial**.  
